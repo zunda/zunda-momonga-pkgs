@@ -1,0 +1,11 @@
+--- taskjuggler-2.4.1/docs/en/Makefile.in.orig	2008-05-06 03:05:07.000000000 -1000
++++ taskjuggler-2.4.1/docs/en/Makefile.in	2008-11-10 16:21:54.000000000 -1000
+@@ -301,7 +301,7 @@
+ xdg_menudir = @xdg_menudir@
+ EXTRA_DIST = taskjuggler/*.html 
+ docprefix = @PACKAGES_DIR@
+-kdeprefix = $(prefix)/share/doc/HTML/en/taskjuggler/
++kdeprefix = $(docprefix)/HTML/en/
+ SGMLSOURCES = taskjuggler.xml ChangeLog.xml FirstProject.xml UsageGuide.xml Example.xml SyntaxReference.xml GenPropertyReference.xml index.docbook
+ CLEANFILES = *.log *.aux *.dvi *.ps *.tex taskjuggler.xml GenPropertyReference.xml Example.xml taskjuggler.log CATALOG.local
+ #>- all: all-am

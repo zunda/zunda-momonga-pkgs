@@ -1,79 +1,20 @@
-#
-# spec file for package taskjuggler (Stable version)
-#
-# Copyright (c) 2006 SUSE LINUX Products GmbH, Nuernberg, Germany.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-#
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
-#
+%global momorel 3
+Summary: Project management software
+Name: taskjuggler
+Version: 2.4.1
+Release: %{momorel}m%{?dist}
+Group: Applications/Productivity
+License: GPL
+URL: http://www.taskjuggler.org
 
-# norootforbuild
+Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2 
+NoSource: 0
+Patch1: taskjuggler-2.4.1.ical-nokde.patch
+Patch2: taskjuggler-2.4.1.doc-path.patch
 
-Name:           taskjuggler
-URL:            http://www.taskjuggler.org
-License:        GPL
-Group:          Applications/Productivity
-Summary:        Project management software
-Version:        2.4.0
-Release:        19
-Source0:        taskjuggler-%{version}.tar.bz2 
-# Patch1:       fix-gcc41.diff
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-
-################################################################################
-# SuSE, openSUSE
-################################################################################
-%if 0%{?suse_version}
-
-%if %suse_version > 1020
-BuildRequires:  docbook-utils docbook-xsl-stylesheets kdelibs3-devel kdepim3-devel texlive
-%else 
-BuildRequires:  docbook-utils docbook-xsl-stylesheets kdelibs3-devel kdepim3-devel te_ams
-%endif
-Requires:       qt3 >= %( echo `rpm -q --queryformat '%{VERSION}' qt3`)
-%endif
-
-################################################################################
-# Fedora
-################################################################################
-%if 0%{?fedora_version}
-%define debug 0
-%define final 0
-%define qt_epoch 1
-%define kdelibs_epoch 6
-
-%define make_cvs 1
-
-%define disable_gcc_check_and_hidden_visibility 1
-BuildRequires:  docbook-utils docbook-xsl-stylesheets kdelibs-devel kdepim-devel tetex
-Requires:       qt
-%endif
-
-################################################################################
-# Mandriva
-################################################################################
-%if 0%{?mandriva_version}
-%define __libtoolize    /bin/true
-
-%define use_enable_final 0
-%{?_no_enable_final: %{expand: %%global use_enable_final 0}}
-
-%define compile_apidox 0
-%{?_no_apidox: %{expand: %%global compile_apidox 0}}
-
-%define unstable 0
-%{?_unstable: %{expand: %%global unstable 1}}
-
-%if %unstable
-%define dont_strip 1
-%endif
-BuildRequires:  docbook-utils openjade kdepim-devel tetex
-BuildRequires:  kdelibs-devel >= %{kde_version}
-BuildRequires:  libqt3 >= %{qt_version}
-Requires: qt3 >= %{qt_version}
-%endif
-
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: qt3-devel docbook-utils tetex
+Requires: qt3
 
 %description
 TaskJuggler is a project management tool for Linux and UNIX-like
@@ -105,8 +46,6 @@ to impress your boss or your investors, TaskJuggler might not be right
 for you. It takes some effort to master its power, but it will become a
 companion you don't want to miss anymore.
 
-
-
 Authors:
 --------
     Chris Schlaeger <cs@kde.org>,
@@ -114,114 +53,36 @@ Authors:
     Lukas Tinkl <lukas.tinkl@suse.cz>
 
 %prep
-%setup -q -n taskjuggler-%{version} 
-#%patch1
-. /etc/opt/kde3/common_options
-update_admin --no-unsermake
+%setup -q
+%patch1 -p1
+%patch2 -p1
 
 %build
-. /etc/opt/kde3/common_options
-./configure \
-   $configkde \
- --libdir=/opt/kde3/%_lib \
- --with-qt-libraries=/usr/lib/qt3/%_lib \
- --disable-final
-pushd docs
-make
-popd
-make %{?jobs:-j %jobs}
+%configure \
+ --program-transform-name='s,x,x,' \
+ --prefix=/usr \
+ --with-kde-support=no \
+ --with-docdir=%{_docdir}/taskjuggler-%{version}/
+pushd docs; %make; popd
+%make
 
 %install
-%define tjdocdir  $RPM_BUILD_ROOT/%{_docdir}/taskjuggler/
-export DESTDIR=$RPM_BUILD_ROOT
-make prefix=/usr install
-rm -rf $RPM_BUILD_ROOT/usr/share/doc/HTML
-# Install the documentation
-install AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm %{tjdocdir}
-cd docs/en; make install; cd ../../
-cp -r Contrib   %{tjdocdir}
-# Move taskjuggler away from /opt/kde3
-mkdir -p $RPM_BUILD_ROOT/usr/bin/
-mv $RPM_BUILD_ROOT/opt/kde3/bin/taskjuggler $RPM_BUILD_ROOT/usr/bin/
-mkdir -p $RPM_BUILD_ROOT/usr/%_lib
-mv $RPM_BUILD_ROOT/opt/kde3/%_lib/libtaskjuggler* $RPM_BUILD_ROOT/usr/%_lib/
-%if 0%{?suse_version}
-%if %suse_version > 1000
-%suse_update_desktop_file -G "Project Management" taskjuggler ProjectManagement
-%else
-%suse_update_desktop_file taskjuggler ProjectManagement
-%endif
-%endif
-# install the kate hilighting, cleanup
-cd Contrib/kate; make install; cd ../..
-rm -rf %{tjdocdir}/Contrib/kate
-# remove la files
-rm $RPM_BUILD_ROOT/%{_libdir}/libtaskjuggler.la
-# Remove not needed files and directories
-rm %{tjdocdir}/Contrib/Makefile*
-rm %{tjdocdir}/*.html
-rm -rf %{tjdocdir}/Contrib/tjGUI
-%find_lang %name
+[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+DESTDIR=%{buildroot} make install
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
+%doc AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm
 %{_bindir}/taskjuggler
 %{_libdir}/libtaskjuggler*
-%dir %{_docdir}/taskjuggler
-%{_docdir}/taskjuggler/AUTHORS
-%{_docdir}/taskjuggler/COPYING
-%{_docdir}/taskjuggler/ChangeLog
-%{_docdir}/taskjuggler/INSTALL
-%{_docdir}/taskjuggler/README
-%{_docdir}/taskjuggler/TODO
-%{_docdir}/taskjuggler/taskjuggler.lsm
-%{_docdir}/taskjuggler/taskjuggler.ps
-%{_docdir}/taskjuggler/Examples
-%dir %{_docdir}/taskjuggler/Contrib
-%{_docdir}/taskjuggler/Contrib/TJ-Pert
-%{_docdir}/taskjuggler/Contrib/tjx2gantt
-%{_docdir}/taskjuggler/Contrib/emacs
-%{_docdir}/taskjuggler/Contrib/vim
-%package kde
-Summary:        Project Management Software for KDE
-Group:          Applications/Productivity
-Autoreqprov:    on
-Requires:       taskjuggler = %{version}
-%description kde
-TaskJuggler is a project management tool for Linux and UNIX based
-operating systems. Whether you want to plan your college's shifts for
-the next month or want to build a skyscraper - TaskJuggler is the tool
-for you.
-
-This package provides an XML viewer for files exported by taskjuggler.
-
-
-
-Authors:
---------
-    Chris Schlaeger <cs@kde.org>,
-    Klaas Freitag <freitag@suse.de>
-    Lukas Tinkl <lukas.tinkl@suse.cz>
-
-
-%files kde -f %name.lang
-%defattr(-,root,root)
-/opt/kde3/bin/TaskJuggler*
-/opt/kde3/share/icons/??color/??x??
-/opt/kde3/share/icons/crystalsvg/??x??
-/opt/kde3/share/apps/katepart/syntax/*
-/opt/kde3/share/mimelnk/application/x-tjx.desktop
-/opt/kde3/share/mimelnk/application/x-tji.desktop
-/opt/kde3/share/mimelnk/application/x-tjp.desktop
-/opt/kde3/share/apps/taskjuggler/
-/opt/kde3/share/config/taskjugglerrc
-/opt/kde3/share/doc/HTML/en/taskjuggler
-/usr/share/applications/kde
 
 %changelog -n taskjuggler
+* Mon Nov 10 2008 - zunda at freeshell.org
+- Update to version 2.4.1
+- Modified to build on Momonga 5 without KDE
 * Fri Jul 22 2007 - cs@kde.org
 - Update to version 2.4.0
 * Mon Jan 01 2007 - cs@kde.org
