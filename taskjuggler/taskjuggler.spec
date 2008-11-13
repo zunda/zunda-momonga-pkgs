@@ -13,7 +13,7 @@
 Name:           taskjuggler
 URL:            http://www.taskjuggler.org
 License:        GPL
-Group:          Productivity/Office/Other
+Group:          Applications/Productivity
 Summary:        Project management software
 Version:        2.4.0
 Release:        19
@@ -187,7 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/taskjuggler/Contrib/vim
 %package kde
 Summary:        Project Management Software for KDE
-Group:          Productivity/Office/Other
+Group:          Applications/Productivity
 Autoreqprov:    on
 Requires:       taskjuggler = %{version}
 %description kde
