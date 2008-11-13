@@ -1,0 +1,158 @@
+###-------------------------------------------------------------
+### IA32 and its compatible architectures
+###
+# buildarchtranslate
+buildarchtranslate: i486: i486
+buildarchtranslate: i586: i586
+buildarchtranslate: i686: i686
+buildarchtranslate: athlon: i686
+buildarchtranslate: pentium-mmx: i586
+buildarchtranslate: k6-2: k6
+buildarchtranslate: k6-3: k6
+buildarchtranslate: athlon-tbird: athlon
+buildarchtranslate: athlon-4: athlon
+buildarchtranslate: athlon-xp: athlon
+buildarchtranslate: athlon-mp: athlon
+buildarchtranslate: x86_64: x86_64
+buildarchtranslate: amd64: x86_64
+buildarchtranslate: ia32e: x86_64
+# buildarch_compat
+buildarch_compat: i386: noarch
+buildarch_compat: i486: noarch
+buildarch_compat: i586: noarch
+buildarch_compat: i686: noarch
+buildarch_compat: pentium-mmx: noarch
+buildarch_compat: pentium2: noarch
+buildarch_compat: pentium3: noarch
+buildarch_compat: pentium4: noarch
+buildarch_compat: k6: noarch
+buildarch_compat: k6-2: noarch
+buildarch_compat: k6-3: noarch
+buildarch_compat: athlon: noarch
+buildarch_compat: athlon-tbird: noarch
+buildarch_compat: athlon-4: noarch
+buildarch_compat: athlon-xp: noarch
+buildarch_compat: athlon-mp: noarch
+buildarch_compat: x86_64: noarch
+buildarch_compat: amd64: x86_64
+buildarch_compat: ia32e: x86_64
+# arch_compat
+arch_compat: i386: noarch
+arch_compat: i486: noarch
+arch_compat: i586: noarch
+arch_compat: i686: noarch
+arch_compat: pentium-mmx: noarch
+arch_compat: pentium2: noarch
+arch_compat: pentium3: noarch
+arch_compat: pentium4: noarch
+arch_compat: k6: noarch
+arch_compat: k6-2: noarch
+arch_compat: k6-3: noarch
+arch_compat: athlon: noarch
+arch_compat: athlon-tbird: noarch
+arch_compat: athlon-4: noarch
+arch_compat: athlon-xp: noarch
+arch_compat: athlon-mp: noarch
+arch_compat: x86_64: amd64 athlon noarch
+arch_compat: amd64: x86_64 athlon noarch
+arch_compat: ia32e: x86_64 athlon noarch
+# optflags
+# i386: __tune_i386__, __OPTIMIZE__
+optflags: i386 -O2 -march=i386 -fstack-protector
+# i486: __i486, __i486__, __tune_i486__, __OPTIMIZE__
+optflags: i486 -O2 -march=i486 -fstack-protector
+# i586: __i586, __i586__, __tune_i586__, __pentium, __pentium__, __tune_pentium__, __OPTIMIZE__
+optflags: i586 -O2 -march=i586 -fstack-protector
+# i686: __i686, __i686__, __tune_i686__, __pentiumpro, __pentiumpro__, __tune_pentiumpro__, __OPTIMIZE__
+optflags: i686 -O2 -mtune=generic -march=i686 -fstack-protector
+# pentium-mmx: __i586, __i586__, __tune_i586__, __pentium, __pentium__, __tune_pentium__, __pentium__mmx__, __tune_pentium_mmx__, __MMX__, __OPTIMIZE__
+optflags: pentium-mmx -O2 -mtune=generic -march=pentium-mmx -fstack-protector
+# pentium2: __i686, __i686__, __tune_i686__, __pentiumpro, __pentiumpro__, __tune_pentiumpro__, __pentium2, __pentium2__, __tune_pentium2__, __MMX__, __OPTIMIZE__
+optflags: pentium2 -O2 -mtune=generic -march=pentium2 -fstack-protector
+# pentium3: __i686, __i686__, __tune_i686__, __pentiumpro, __pentiumpro__, __tune_pentiumpro__, __pentium2, __pentium2__, __tune_pentium2__, __pentium3, __pentium3__, __tune_pentium3__, __MMX__, __SSE__, __OPTIMIZE__
+optflags: pentium3 -O2 -mtune=generic -march=pentium3 -fstack-protector
+# pentium4: __pentium4, __pentium4__, __tune_pentium4__, __MMX__, __SSE__, __SSE2__, __OPTIMIZE__
+optflags: pentium4 -O2 -mtune=generic -march=pentium4 -fstack-protector
+# k6: __k6, __k6__, __tune_k6__, __MMX__, __OPTIMIZE__
+optflags: k6 -O2 -march=k6 -fstack-protector
+# k6-2: __k6, __k6__, __tune_k6__, __k6_2__, __tune_k6_2__, __MMX__, __3dNOW__, __OPTIMIZE__
+optflags: k6-2 -O2 -march=k6-2 -fstack-protector
+# k6-3: __k6, __k6__, __tune_k6__, __k6_3__, __tune_k6_3__, __MMX__, __3dNOW__, __OPTIMIZE__
+optflags: k6-3 -O2 -march=k6-3 -fstack-protector
+# athlon: __athlon, __athlon__, __tune_athlon__, __MMX__, __3dNOW__, __3dNOW_A__, __OPTIMIZE__
+optflags: athlon -O2 -mtune=generic -march=athlon -fstack-protector
+# athlon-tbird: __athlon, __athlon__, __tune_athlon__, __MMX__, __3dNOW__, __3dNOW_A__, __OPTIMIZE__
+optflags: athlon-tbird -O2 -mtune=generic -march=athlon-tbird -fstack-protector
+# athlon-4: __athlon, __athlon__, __tune_athlon__, __athlon_sse__, __tune_athlon_sse__, __MMX__, __3dNOW__, __3dNOW_A__, __OPTIMIZE__
+optflags: athlon-4 -O2 -mtune=generic -march=athlon-4 -fstack-protector
+# athlon-xp: __athlon, __athlon__, __tune_athlon__, __athlon_sse__, __tune_athlon_sse__, __MMX__, __3dNOW__, __3dNOW_A__, __SSE__, __OPTIMIZE__
+optflags: athlon-xp -O2 -mtune=generic -march=athlon-xp -fstack-protector
+# athlon-mp: __athlon, __athlon__, __tune_athlon__, __athlon_sse__, __tune_athlon_sse__, __MMX__, __3dNOW__, __3dNOW_A__, __SSE__, __OPTIMIZE__
+optflags: athlon-mp -O2 -mtune=generic -march=athlon-mp -fstack-protector
+optflags: x86_64 -O2 -mtune=generic -fPIC -fstack-protector 
+optflags: amd64 -O2 -mtune=generic -fPIC -fstack-protector
+optflags: ia32e -O2 -mtune=generic -fPIC -fstack-protector
+
+###-------------------------------------------------------------
+### Alpha
+###
+# buildarchtranslate
+buildarchtranslate: alphaev5: alpha
+buildarchtranslate: alphaev6: alpha
+buildarchtranslate: alphaev67: alpha
+# buildarch_compat
+buildarch_compat: alpha: noarch
+buildarch_compat: alphaev5: noarch
+buildarch_compat: alphaev6: noarch
+buildarch_compat: alphaev67: noarch
+# arch_compat
+arch_compat: alpha: noarch
+arch_compat: alphaev5: noarch
+arch_compat: alphaev6: noarch
+arch_compat: alphaev67: noarch
+
+optflags: alpha -O2 -fPIC -mieee
+optflags: alphaev5 -O2 -fPIC -mieee
+
+###-------------------------------------------------------------
+### PowerPC
+###
+# buildarchtranslate
+buildarchtranslate: powerpc: ppc
+buildarchtranslate: powerppc: ppc
+buildarchtranslate: ppcpseries: ppc
+buildarchtranslate: powerpc64: ppc64
+# buildarch_compat
+buildarch_compat: ppc: noarch
+buildarch_compat: powerpc: noarch
+buildarch_compat: powerppc: noarch
+buildarch_compat: ppcpseries: noarch
+buildarch_compat: ppc64: noarch
+buildarch_compat: ppc64pseries: ppc64
+buildarch_compat: ppc64iseries: ppc64
+# arch_compat
+arch_compat: ppc: noarch
+arch_compat: powerpc: noarch
+arch_compat: powerppc: noarch
+arch_compat: ppcpseries: noarch
+arch_compat: ppc64: ppc
+arch_compat: ppc: rs6000
+arch_compat: rs6000: noarch
+arch_compat: ppc64pseries: ppc64
+arch_compat: ppc64iseries: ppc64
+
+optflags: ppc -O2 -fsigned-char
+optflags: ppc64 -O2 -fsigned-char -fPIC
+
+###-------------------------------------------------------------
+### ia64
+###
+# buildarchtranslate
+# buildarch_compat
+buildarch_compat: ia64: noarch
+# arch_compat
+arch_compat: ia64: noarch
+optflags: ia64 -O2 -fPIC
+
+
+macrofiles: /usr/lib/rpm/macros:/usr/lib/rpm/%{_target}/macros:/usr/lib/rpm/macros.momonga:/usr/lib/rpm/%{_target}/macros.momonga:/etc/rpm/macros.*:/etc/rpm/macros:/etc/rpm/%{_target}/macros:~/.rpmmacros:
