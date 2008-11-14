@@ -1,4 +1,4 @@
-%global momorel 3
+%global momorel 1
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -7,7 +7,7 @@ Group: Applications/Productivity
 License: GPL
 URL: http://www.taskjuggler.org
 
-Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2 
+Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2
 NoSource: 0
 Patch1: taskjuggler-2.4.1.ical-nokde.patch
 Patch2: taskjuggler-2.4.1.doc-path.patch
@@ -59,7 +59,6 @@ Authors:
 
 %build
 %configure \
- --program-transform-name='s,x,x,' \
  --prefix=/usr \
  --with-kde-support=no \
  --with-docdir=%{_docdir}/taskjuggler-%{version}/
