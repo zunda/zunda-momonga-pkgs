@@ -67,7 +67,7 @@ pushd docs; %make; popd
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-DESTDIR=%{buildroot} make install
+DESTDIR=%{buildroot} make install transform='s,x,x,'
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -78,7 +78,7 @@ DESTDIR=%{buildroot} make install
 %{_bindir}/taskjuggler
 %{_libdir}/libtaskjuggler*
 
-%changelog -n taskjuggler
+%changelog
 * Mon Nov 10 2008 - zunda at freeshell.org
 - Update to version 2.4.1
 - Modified to build on Momonga 5 without KDE
