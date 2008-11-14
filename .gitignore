@@ -1,1 +1,7 @@
 .OmoiKondara
+.specdb
+BUILD/
+SOURCES/
+*/rpmrc
+*/rpmmacros
+*/OmoiKondara.log*
