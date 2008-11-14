@@ -1,4 +1,4 @@
-%global momorel 1
+%global momorel 2
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -60,14 +60,13 @@ Authors:
 %build
 %configure \
  --prefix=/usr \
- --with-kde-support=no \
- --with-docdir=%{_docdir}/taskjuggler-%{version}/
+ --with-kde-support=no
 pushd docs; %make; popd
 %make
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-DESTDIR=%{buildroot} make install transform='s,x,x,'
+%make DESTDIR=%{buildroot} transform='s,x,x,' kde_locale=/usr/share/locale install
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -77,6 +76,7 @@ DESTDIR=%{buildroot} make install transform='s,x,x,'
 %doc AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm
 %{_bindir}/taskjuggler
 %{_libdir}/libtaskjuggler*
+%{_datadir}/locale/*/LC_MESSAGES/*.mo
 
 %changelog
 * Mon Nov 10 2008 - zunda at freeshell.org
