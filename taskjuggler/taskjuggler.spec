@@ -67,6 +67,7 @@ pushd docs; %make; popd
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 %make DESTDIR=%{buildroot} transform='s,x,x,' kde_locale=/usr/share/locale install
+TODO: man documents
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -74,6 +75,7 @@ pushd docs; %make; popd
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm
+%doc /usr/share/doc/packages/taskjuggler
 %{_bindir}/taskjuggler
 %{_libdir}/libtaskjuggler*
 %{_datadir}/locale/*/LC_MESSAGES/*.mo
