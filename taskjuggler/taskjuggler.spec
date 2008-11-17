@@ -59,15 +59,14 @@ Authors:
 
 %build
 %configure \
- --prefix=/usr \
- --with-kde-support=no
+  --prefix=/usr \
+  --with-kde-support=no
 pushd docs; %make; popd
 %make
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 %make DESTDIR=%{buildroot} transform='s,x,x,' kde_locale=/usr/share/locale install
-TODO: man documents
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -81,6 +80,12 @@ TODO: man documents
 %{_datadir}/locale/*/LC_MESSAGES/*.mo
 
 %changelog
+* Fri Nov 14 2008 - zunda at freeshell.org
+- (2.4.1-2m)
+- Modified to include documentations
+- Documentations including examples are in /usr/share/doc/packages/taskjuggler.
+  Is there a more appropirate path?
+- docbook-to-man needed to create man pages
 * Mon Nov 10 2008 - zunda at freeshell.org
 - Update to version 2.4.1
 - Modified to build on Momonga 5 without KDE
