@@ -1,4 +1,4 @@
-%global momorel 2
+%global momorel 3
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -9,11 +9,10 @@ URL: http://www.taskjuggler.org
 
 Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2
 NoSource: 0
-Patch1: taskjuggler-2.4.1.ical-nokde.patch
-Patch2: taskjuggler-2.4.1.doc-path.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: qt3-devel docbook-utils tetex
+BuildRequires: kdelibs-devel kdepim-devel arts-devel kdepimlibs-devel
 Requires: qt3
 
 %description
@@ -54,19 +53,16 @@ Authors:
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
 
 %build
 %configure \
-  --prefix=/usr \
-  --with-kde-support=no
+  KDECONFIG=kde4-config
 pushd docs; %make; popd
 %make
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-%make DESTDIR=%{buildroot} transform='s,x,x,' kde_locale=/usr/share/locale install
+%make DESTDIR=%{buildroot} transform='s,x,x,' install
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
