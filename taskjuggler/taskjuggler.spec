@@ -9,6 +9,7 @@ URL: http://www.taskjuggler.org
 
 Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2
 NoSource: 0
+Patch0: taskjuggler-2.4.1.kcal-header-path.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: qt3-devel docbook-utils tetex
@@ -53,8 +54,10 @@ Authors:
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+autoconf
 %configure \
   KDECONFIG=kde4-config
 pushd docs; %make; popd

@@ -1,0 +1,15 @@
+--- taskjuggler-2.4.1/configure.in.orig	2008-05-06 03:04:55.000000000 -1000
++++ taskjuggler-2.4.1/configure.in	2008-11-18 20:20:44.000000000 -1000
+@@ -101,9 +101,9 @@
+     LIBKCAL="-lkcal"
+     dnl Some distros split off a KDEPIM devel package most people
+     dnl forget to install.
+-    KDE_CHECK_HEADERS(libkcal/calendarlocal.h libkcal/todo.h)
+-    if test "$ac_cv_header_libkcal_calendarlocal_h" = "no" -o \
+-            "$ac_cv_header_libkcal_todo_h" = "no" ; then
++    KDE_CHECK_HEADERS(kcal/calendarlocal.h kcal/todo.h)
++    if test "$ac_cv_header_kcal_calendarlocal_h" = "no" -o \
++            "$ac_cv_header_kcal_todo_h" = "no" ; then
+       AC_MSG_ERROR([KDEPIM header files no found. Please make sure
+ you have KDEPIM and the corresponding development packages
+ installed!])
