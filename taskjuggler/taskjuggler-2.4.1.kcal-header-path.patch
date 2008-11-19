@@ -13,3 +13,27 @@
        AC_MSG_ERROR([KDEPIM header files no found. Please make sure
  you have KDEPIM and the corresponding development packages
  installed!])
+--- taskjuggler-2.4.1/taskjuggler/ICalReport.h.orig	2008-05-06 03:04:54.000000000 -1000
++++ taskjuggler-2.4.1/taskjuggler/ICalReport.h	2008-11-18 20:34:40.000000000 -1000
+@@ -13,8 +13,8 @@
+ #ifndef _ICalReport_h_
+ #define _ICalReport_h_
+ 
+-#include <libkcal/calendarlocal.h>
+-#include <libkcal/todo.h>
++#include <kcal/calendarlocal.h>
++#include <kcal/todo.h>
+ 
+ #include <Report.h>
+ 
+--- taskjuggler-2.4.1/taskjuggler/ICalReport.cpp.orig	2008-05-06 03:04:54.000000000 -1000
++++ taskjuggler-2.4.1/taskjuggler/ICalReport.cpp	2008-11-18 20:34:36.000000000 -1000
+@@ -20,7 +20,7 @@
+ #include <qptrdict.h>
+ #include <qfile.h>
+ #include <klocale.h>
+-#include <libkcal/icalformat.h>
++#include <kcal/icalformat.h>
+ 
+ #include "tjlib-internal.h"
+ #include "Project.h"
