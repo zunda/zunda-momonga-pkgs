@@ -35,12 +35,12 @@ Patch0: kdepim-3.4.0-kandy-icons.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Obsoletes: korganizer1x, kpilot
-Requires: kdebase >= %{kdever}-%{kdebaserel}
+Requires: kdebase3 >= %{kdever}-%{kdebaserel}
 Requires: gnupg2
 BuildPreReq: qt-devel >= %{qtver}
 BuildPreReq: arts-devel >= %{artsver}-%{artsrel}
 BuildPreReq: kdelibs-devel >= %{kdever}-%{kdelibsrel}
-BuildPreReq: kdebase >= %{kdever}-%{kdebaserel}
+BuildPreReq: kdebase3 >= %{kdever}-%{kdebaserel}
 BuildPreReq: autoconf >= 2.56-3m 
 BuildPreReq: bison
 BuildPreREq: cyrus-sasl-devel
@@ -55,7 +55,6 @@ BuildPreReq: libart_lgpl-devel
 BuildPreReq: libmal-devel >= 0.44-2m
 BuildPreReq: libopensync-devel
 BuildPreReq: libpng-devel >= 1.2.5
-BuildPreReq: libtermcap-devel >= 2.0.8-38m
 BuildPreReq: perl 
 BuildPreReq: pilot-link-devel >= 0.12.1-2m
 BuildPreReq: python-devel
