@@ -59,7 +59,7 @@ Authors:
 %build
 autoconf
 %configure \
-  KDECONFIG=kde4-config
+ --with-qt-dir=/usr/lib/qt-3.3.7
 pushd docs; %make; popd
 %make
 
