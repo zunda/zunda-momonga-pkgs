@@ -250,6 +250,8 @@ make install DESTDIR=%{buildroot}
 %{_libdir}/*.so.?
 
 %changelog
+- kdepim on build host must be removed
+
 * Mon Nov 24 2008 zunda <zunda at freeshell.org>
 - Copied from http://svn.momonga-linux.org/svn/pkgs/branches/STABLE_4/pkgs/kdepim/ r.29112
 

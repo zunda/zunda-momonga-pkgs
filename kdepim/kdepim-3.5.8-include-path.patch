@@ -1,0 +1,22 @@
+--- kdepim-3.5.8/kabc/kabc2mutt/kabc2mutt.h.orig	2005-09-09 22:24:24.000000000 -1000
++++ kdepim-3.5.8/kabc/kabc2mutt/kabc2mutt.h	2008-11-24 16:12:14.000000000 -1000
+@@ -20,7 +20,7 @@
+ #ifndef KABC2MUTT_H
+ #define KABC2MUTT_H
+ 
+-#include <kabc/stdaddressbook.h>
++#include <libkdepim/stdaddressbook.h>
+ 
+ class KABC2Mutt : public QObject
+ {
+--- kdepim-3.5.8/kabc/kabc2mutt/kabc2mutt.cpp.orig	2005-09-09 22:24:24.000000000 -1000
++++ kdepim-3.5.8/kabc/kabc2mutt/kabc2mutt.cpp	2008-11-24 16:12:21.000000000 -1000
+@@ -17,7 +17,7 @@
+     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+ 
+-#include <kabc/distributionlist.h>
++#include <libkdepim/distributionlist.h>
+ #include <kapplication.h>
+ #include <klocale.h>
+ 
