@@ -1,4 +1,4 @@
-%global momorel 3
+%global momorel 4
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -9,11 +9,11 @@ URL: http://www.taskjuggler.org
 
 Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2
 NoSource: 0
-Patch0: taskjuggler-2.4.1.kcal-header-path.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: qt3-devel docbook-utils tetex
-BuildRequires: kdelibs-devel kdepim-devel arts-devel kdepimlibs-devel
+BuildRequires: qt-devel docbook-utils tetex
+BuildRequires: kdepim kdelibs-devel arts-devel libart_lgpl-devel libidn-devel
+BuildRequires: libutempter-devel libacl-devel
 Requires: qt3
 
 %description
@@ -54,7 +54,6 @@ Authors:
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 autoconf
@@ -79,6 +78,9 @@ pushd docs; %make; popd
 %{_datadir}/locale/*/LC_MESSAGES/*.mo
 
 %changelog
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-3m)
+- rpmbuild completes (with some files left unpackaged) on Momonga 4
 * Fri Nov 14 2008 - zunda at freeshell.org
 - (2.4.1-2m)
 - Modified to include documentations
