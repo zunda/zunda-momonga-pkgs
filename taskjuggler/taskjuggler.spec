@@ -1,4 +1,4 @@
-%global momorel 5
+%global momorel 6
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -14,7 +14,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: qt-devel docbook-utils tetex
 BuildRequires: kdepim kdelibs-devel arts-devel libart_lgpl-devel libidn-devel
 BuildRequires: libutempter-devel libacl-devel
-Requires: qt3
+Requires: qt
 
 %description
 TaskJuggler is a project management tool for Linux and UNIX-like
@@ -86,6 +86,9 @@ pushd docs; %make; popd
 %config /usr/share/mimelnk/application/*
 
 %changelog
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-5m)
+- Added dependency to qt instead of qt3 for Momonga 4
 * Tue Dec  2 2008 - zunda at freeshell.org
 - (2.4.1-4m)
 - Updated list of files
