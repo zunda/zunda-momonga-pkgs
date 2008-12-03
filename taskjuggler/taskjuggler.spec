@@ -1,4 +1,4 @@
-%global momorel 4
+%global momorel 5
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.1
@@ -72,12 +72,23 @@ pushd docs; %make; popd
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm
-%doc /usr/share/doc/packages/taskjuggler
 %{_bindir}/taskjuggler
+%{_bindir}/TaskJugglerUI
 %{_libdir}/libtaskjuggler*
 %{_datadir}/locale/*/LC_MESSAGES/*.mo
+%doc /usr/share/doc/packages/taskjuggler
+%doc /usr/share/doc/HTML/*/taskjuggler/*
+%config /usr/share/applications/kde/taskjuggler.desktop
+%config /usr/share/apps/katepart/syntax/taskjuggler.xml
+%config /usr/share/apps/taskjuggler/
+%config /usr/share/config/taskjugglerrc
+%config /usr/share/icons/*/*/*/*
+%config /usr/share/mimelnk/application/*
 
 %changelog
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-4m)
+- Updated list of files
 * Tue Dec  2 2008 - zunda at freeshell.org
 - (2.4.1-3m)
 - rpmbuild completes (with some files left unpackaged) on Momonga 4
