@@ -64,7 +64,7 @@ autoconf
   --with-ical-support=no \
   --with-extra-includes=/usr/include/kde \
   --with-extra-libraries=/usr/lib/kde3
-pushd docs; %make; popd
+pushd docs; make; popd
 %make
 
 %install
@@ -100,6 +100,7 @@ pushd docs; %make; popd
     --with-extra-libraries=/usr/lib/kde3
   - removed dependencies to kdepim and kdelibs
   - added dependency to kdelibs3
+  - disabled parallel build in doc
 * Wed Aug 19 2009 - zunda at freeshell.org
 - (2.4.3-1m)
 - Updated
