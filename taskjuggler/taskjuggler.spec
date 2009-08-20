@@ -1,7 +1,7 @@
-%global momorel 7
+%global momorel 1
 Summary: Project management software
 Name: taskjuggler
-Version: 2.4.1
+Version: 2.4.3
 Release: %{momorel}m%{?dist}
 Group: Applications/Productivity
 License: GPL
@@ -88,6 +88,9 @@ pushd docs; %make; popd
 %config /usr/share/mimelnk/application/*
 
 %changelog
+* Wed Aug 19 2009 - zunda at freeshell.org
+- (2.4.3-1m)
+- Updated
 * Fri Feb 20 2009 - zunda at freeshell.org
 - (2.4.1-7m)
 - Added dependency to kdelibs and kdepim
