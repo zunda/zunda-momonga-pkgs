@@ -1,4 +1,4 @@
-%global momorel 1
+%global momorel 2
 Summary: Project management software
 Name: taskjuggler
 Version: 2.4.3
@@ -12,11 +12,10 @@ NoSource: 0
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: qt-devel docbook-utils tetex
-BuildRequires: kdepim kdelibs-devel arts-devel libart_lgpl-devel libidn-devel
+BuildRequires: kdelibs3-devel arts-devel libart_lgpl-devel libidn-devel
 BuildRequires: libutempter-devel libacl-devel
 Requires: qt
-Requires: kdelibs
-Requires: kdepim
+Requires: kdelibs3
 
 %description
 TaskJuggler is a project management tool for Linux and UNIX-like
@@ -58,9 +57,13 @@ Authors:
 %setup -q
 
 %build
+%define __libtoolize :
 autoconf
 %configure \
- --with-qt-dir=/usr/lib/qt-3.3.7
+  --with-qt-dir=/usr/lib/qt-3.3.7 \
+  --with-ical-support=no \
+  --with-extra-includes=/usr/include/kde \
+  --with-extra-libraries=/usr/lib/kde3
 pushd docs; %make; popd
 %make
 
@@ -88,6 +91,15 @@ pushd docs; %make; popd
 %config /usr/share/mimelnk/application/*
 
 %changelog
+* Thu Aug 20 2009 - zunda at freeshell.org
+- (2.4.3-2m)
+- Modified for Momonga 6
+  - added empty defnition on __liboolize
+  - added options to configure - --with-ical-support=no,
+    --with-extra-includes=/usr/include/kde, and
+    --with-extra-libraries=/usr/lib/kde3
+  - removed dependencies to kdepim and kdelibs
+  - added dependency to kdelibs3
 * Wed Aug 19 2009 - zunda at freeshell.org
 - (2.4.3-1m)
 - Updated
