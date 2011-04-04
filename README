@@ -10,7 +10,6 @@ follow the steps below:
   $ mkdir ~/local/Momonga
   $ cd Momonga
   $ svn co http://svn.momonga-linux.org/svn/pkgs/trunk/tools
-  $ cd Momonga
   $ git clone git://github.com/zunda/zunda-momonga-pkgs.git (or your folk)
 
 You might want to replace zunda-momonga-pkgs/rpmrc with the one
