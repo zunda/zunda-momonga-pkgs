@@ -7,6 +7,8 @@ buildarchtranslate: i586: i586
 buildarchtranslate: i686: i686
 buildarchtranslate: athlon: i686
 buildarchtranslate: pentium-mmx: i586
+buildarchtranslate: pentium3: i686
+buildarchtranslate: pentium4: i686
 buildarchtranslate: k6-2: k6
 buildarchtranslate: k6-3: k6
 buildarchtranslate: athlon-tbird: athlon
@@ -155,4 +157,4 @@ arch_compat: ia64: noarch
 optflags: ia64 -O2 -fPIC
 
 
-macrofiles: /usr/lib/rpm/macros:/usr/lib/rpm/%{_target}/macros:/usr/lib/rpm/macros.momonga:/usr/lib/rpm/%{_target}/macros.momonga:/etc/rpm/macros.*:/etc/rpm/macros:/etc/rpm/%{_target}/macros:~/.rpmmacros:
+macrofiles: /usr/lib/rpm/macros:/usr/lib/rpm/%{_target}/macros:/usr/lib/rpm/macros.momonga:/usr/lib/rpm/%{_target}/macros.momonga:/usr/lib/rpm/momonga/macros:/etc/rpm/macros.*:/etc/rpm/macros:/etc/rpm/%{_target}/macros:~/.rpmmacros:
