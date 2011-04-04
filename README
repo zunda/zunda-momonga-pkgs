@@ -1,1 +1,25 @@
 Zunda's collection of RPM spec files for Momonga Linux
+
+To get started:
+
+Have a look at
+http://developer.momonga-linux.org/wiki/?OmoiKondaraQuickStart
+follow the steps below:
+
+  # yum install build-momonga
+  $ mkdir ~/local/Momonga
+  $ cd Momonga
+  $ svn co http://svn.momonga-linux.org/svn/pkgs/trunk/tools
+  $ cd Momonga
+  $ git clone git://github.com/zunda/zunda-momonga-pkgs.git (or your folk)
+
+You might want to replace zunda-momonga-pkgs/rpmrc with the one
+from http://svn.momonga-linux.org/svn/pkgs/trunk/pkgs/rpmrc
+
+  $ cd zunda-momonga-pkgs
+  $ cp ../tools/example.OmoiKondara .OmoiKondara
+
+Edit .OmoiKondara:
+  TOPDIR ~/local/Momonga/PKGS
+  PKGDIR ~/local/Momonga/zunda-momonga-pkgs
+
