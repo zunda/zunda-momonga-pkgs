@@ -1,7 +1,7 @@
-%global momorel 3
+%global momorel 2
 Summary: Project management software
 Name: taskjuggler
-Version: 2.4.1
+Version: 2.4.3
 Release: %{momorel}m%{?dist}
 Group: Applications/Productivity
 License: GPL
@@ -9,12 +9,13 @@ URL: http://www.taskjuggler.org
 
 Source0: http://www.taskjuggler.org/download/taskjuggler-%{version}.tar.bz2
 NoSource: 0
-Patch0: taskjuggler-2.4.1.kcal-header-path.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: qt3-devel docbook-utils tetex
-BuildRequires: kdelibs-devel kdepim-devel arts-devel kdepimlibs-devel
-Requires: qt3
+BuildRequires: qt-devel docbook-utils tetex
+BuildRequires: kdelibs3-devel arts-devel libart_lgpl-devel libidn-devel
+BuildRequires: libutempter-devel libacl-devel
+Requires: qt
+Requires: kdelibs3
 
 %description
 TaskJuggler is a project management tool for Linux and UNIX-like
@@ -54,13 +55,16 @@ Authors:
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
+%define __libtoolize :
 autoconf
 %configure \
- --with-qt-dir=/usr/lib/qt-3.3.7
-pushd docs; %make; popd
+  --with-qt-dir=/usr/lib/qt-3.3.7 \
+  --with-ical-support=no \
+  --with-extra-includes=/usr/include/kde \
+  --with-extra-libraries=/usr/lib/kde3
+pushd docs; make; popd
 %make
 
 %install
@@ -73,12 +77,45 @@ pushd docs; %make; popd
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog INSTALL README TODO taskjuggler.lsm
-%doc /usr/share/doc/packages/taskjuggler
 %{_bindir}/taskjuggler
+%{_bindir}/TaskJugglerUI
 %{_libdir}/libtaskjuggler*
 %{_datadir}/locale/*/LC_MESSAGES/*.mo
+%doc /usr/share/doc/packages/taskjuggler
+%doc /usr/share/doc/HTML/*/taskjuggler/*
+%config /usr/share/applications/kde/taskjuggler.desktop
+%config /usr/share/apps/katepart/syntax/taskjuggler.xml
+%config /usr/share/apps/taskjuggler/
+%config /usr/share/config/taskjugglerrc
+%config /usr/share/icons/*/*/*/*
+%config /usr/share/mimelnk/application/*
 
 %changelog
+* Thu Aug 20 2009 - zunda at freeshell.org
+- (2.4.3-2m)
+- Modified for Momonga 6
+  - added empty defnition on __liboolize
+  - added options to configure - --with-ical-support=no,
+    --with-extra-includes=/usr/include/kde, and
+    --with-extra-libraries=/usr/lib/kde3
+  - removed dependencies to kdepim and kdelibs
+  - added dependency to kdelibs3
+  - disabled parallel build in doc
+* Wed Aug 19 2009 - zunda at freeshell.org
+- (2.4.3-1m)
+- Updated
+* Fri Feb 20 2009 - zunda at freeshell.org
+- (2.4.1-7m)
+- Added dependency to kdelibs and kdepim
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-5m)
+- Added dependency to qt instead of qt3 for Momonga 4
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-4m)
+- Updated list of files
+* Tue Dec  2 2008 - zunda at freeshell.org
+- (2.4.1-3m)
+- rpmbuild completes (with some files left unpackaged) on Momonga 4
 * Fri Nov 14 2008 - zunda at freeshell.org
 - (2.4.1-2m)
 - Modified to include documentations
