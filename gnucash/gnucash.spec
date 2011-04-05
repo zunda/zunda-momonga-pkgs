@@ -11,9 +11,6 @@
 # Granted, it will look weird, but at least it wont fail outright.
 %define fc_rel %(rpm -q --queryformat='%{VERSION}' --whatprovides redhat-release)
 
-# Edit dist if not a Fedora release
-%define dist FC%{fc_rel}
-
 %define version 2.4.4
 %define __libtoolize /bin/true
 
@@ -210,7 +207,6 @@ fi
 %{_libdir}/*
 %{_datadir}/gnucash
 %{_datadir}/applications/*
-%{_datadir}/xml/gnucash/xsl/*
 %{_datadir}/icons/*
 %{_sysconfdir}/gconf/schemas/apps_gnucash*
 %if %{_with_ofx}
@@ -268,3 +264,4 @@ fi
 * Mon Apr  4 2011 zunda <zunda at freeshell.org>
 - (2.4.4-1m)
 - Modifeid to build on Momonga 7
+- removed files /usr/share/xml/gnucash/xsl/* from the list
