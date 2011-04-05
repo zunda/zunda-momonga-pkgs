@@ -1,6 +1,5 @@
-#
-# Spec file for Fedora and other RedHat distros and derivatives
-#
+%global momorel 1
+
 # Check whether GnuCash should build optional modules.
 # To modify parameters, edit the .spec file, 0 is off, 1 is on
 %define _with_postgres 0
@@ -26,36 +25,37 @@
 %define aqbanking_version 1.3
 %define postgresql_version 7.1.3
 
-Name:      	gnucash
-Summary:   	GnuCash is an application to keep track of your finances.
-Version:   	%{version}
-Release:  	1.%{dist}
-License:	GPL
-Group:     	Applications/Finance
-URL:            http://www.gnucash.org
+Name: gnucash
+Summary: GnuCash is an application to keep track of your finances.
+Version: %{version}
+Release: %{momorel}m%{?dist}
+
+License: GPL
+Group: Applications/Productivity
+URL: http://www.gnucash.org/
 Source0: http://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
-NoSource:   0
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-root
+NoSource: 0
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:         GConf2
-Requires:         /usr/bin/gconftool-2
-Requires: 	/sbin/ldconfig
-Requires:		/sbin/install-info
-
-Requires:  	libgnomeui >= %{libgnomeui_version}
+Requires: GConf2
+Requires: /usr/bin/gconftool-2
+Requires: /sbin/ldconfig
+Requires: /sbin/install-info
+Requires: libgnomeui >= %{libgnomeui_version}
 Requires:	libgnomeprintui22 >= %{libgnomeprintui22_version}
 Requires:	guile >= %{guile_version}
 Requires:	gtkhtml3 >= %{gtkhtml3_version}
 Requires:	slib >= 3a1
 
-BuildRequires:  gcc, intltool
-BuildRequires: 	libgnomeui-devel >= %{libgnomeui_version}
-BuildRequires: 	libgnomeprintui22-devel >= %{libgnomeprintui22_version}
-BuildRequires: 	gtkhtml3-devel >= %{gtkhtml3_version}
-BuildRequires: 	bzip2-devel, expat-devel, guile-devel
-BuildRequires: 	libglade2-devel, libgsf-devel
-BuildRequires: 	libjpeg-devel, openssl-devel
-BuildRequires:	goffice-devel
+BuildRequires: gcc, intltool
+BuildRequires: libgnomeui-devel >= %{libgnomeui_version}
+BuildRequires: libgnomeprintui22-devel >= %{libgnomeprintui22_version}
+BuildRequires: gtkhtml3-devel >= %{gtkhtml3_version}
+BuildRequires: bzip2-devel, expat-devel, guile-devel, gmp-devel
+BuildRequires: libglade2-devel, libgsf-devel
+BuildRequires: libjpeg-devel, openssl-devel
+BuildRequires: goffice-devel
+BuildRequires: slib >= 3a1
 
 %description
 GnuCash is a personal finance manager. A check-book like
@@ -263,3 +263,8 @@ fi
 %defattr(444,root,root,755)
 %{_libdir}/gnucash/libgncmod-backend-dbi*
 %endif
+
+%changelog
+* Mon Apr  4 2011 zunda <zunda at freeshell.org>
+- (2.4.4-1m)
+- Modifeid to build on Momonga 7
