@@ -86,7 +86,7 @@ fi
 %changelog
 * Mon Apr  4 2011 zunda <zunda at freeshell.org>
 - (3b3-2m)
-- Installs man page
+- Installs the man page and info
 
 * Mon Apr  4 2011 zunda <zunda at freeshell.org>
 - (3b3-1m)
