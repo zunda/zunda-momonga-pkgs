@@ -174,7 +174,7 @@ unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 %post
 /sbin/ldconfig
-/sbin/install-info %{_infodir}/gnucash-design.info.gz %{_infodir}/dir
+/sbin/install-info %{_infodir}/gnucash-design.info.* %{_infodir}/dir || :
 
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 SCHEMAS=%{_sysconfdir}/gconf/schemas/apps_gnucash*.schemas
@@ -184,19 +184,17 @@ done
 
 %preun
 if [ "$1" -eq 0 ]; then
-     #deleting the schema on package removal
-     export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-     SCHEMAS=%{_sysconfdir}/gconf/schemas/apps_gnucash*.schemas
-     for S in $SCHEMAS; do
-       gconftool-2 --makefile-uninstall-rule $S > /dev/null
-     done
+  #deleting the schema on package removal
+  export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+  SCHEMAS=%{_sysconfdir}/gconf/schemas/apps_gnucash*.schemas
+  for S in $SCHEMAS; do
+    gconftool-2 --makefile-uninstall-rule $S > /dev/null
+  done
+  /sbin/install-info --delete %{_infodir}/gnucash-design.info.* %{_infodir}/dir || :
 fi
 
 %postun
 /sbin/ldconfig
-if [ $1 = 0 ]; then
-   /sbin/install-info --delete %{_infodir}/gnucash-design.info.gz %{_infodir}/dir
-fi
 
 %files -f %{name}.lang
 %defattr(444,root,root,755)
