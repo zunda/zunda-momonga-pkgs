@@ -1,4 +1,4 @@
-%global momorel 1
+%global momorel 2
 
 Summary:      platform independent library for scheme
 Name:         slib
@@ -11,8 +11,9 @@ Packager:     Aubrey Jaffer <agj@alum.mit.edu>
 License:      distributable, see individual files for copyright
 Vendor:       Aubrey Jaffer <agj @ alum.mit.edu>
 Provides:     slib
-
 Requires:     guile
+Requires(post):info
+Requires(preun):info
 
 Source0:      http://groups.csail.mit.edu/mac/ftpdir/scm/slib-%{version}.zip
 NoSource:     0
@@ -38,6 +39,10 @@ unzip ${RPM_SOURCE_DIR}/slib-%{version}.zip
 rm -rf %{buildroot}
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/slib
 cp *.scm *.init *.xyz *.txt ${RPM_BUILD_ROOT}%{_datadir}/slib
+mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
+cp slib.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
+mkdir -p ${RPM_BUILD_ROOT}%{_infodir}
+cp slib.info ${RPM_BUILD_ROOT}%{_infodir}
 
 # Guile specific
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/guile/site
@@ -53,10 +58,14 @@ guile <<_END > /dev/null
 (load "%{_datadir}/slib/mklibcat.scm")
 (quit)
 _END
+/sbin/install-info %{_infodir}/slib.info.* %{_infodir}/dir || :
 
 %preun
-# Guile specific
-rm -f %{_datadir}/guile/*/slibcat
+if [ $1 = 0 ]; then
+	/sbin/install-info --delete %{_infodir}/slib.info %{_infodir}/dir || :
+	# Guile specific
+	rm -f %{_datadir}/guile/*/slibcat
+fi
 
 %files
 %defattr(-, root, root)
@@ -68,12 +77,19 @@ rm -f %{_datadir}/guile/*/slibcat
 %{_datadir}/slib/nbs-iscc.txt
 %{_datadir}/slib/saturate.txt
 %{_datadir}/slib/resenecolours.txt
+%{_mandir}/man1/slib.*
+%{_infodir}/slib.info.*
 %doc ANNOUNCE README COPYING FAQ ChangeLog
 %dir %{_datadir}/guile/site
 %{_datadir}/guile/site/slib
 
 %changelog
 * Mon Apr  4 2011 zunda <zunda at freeshell.org>
+- (3b3-2m)
+- Installs man page
+
+* Mon Apr  4 2011 zunda <zunda at freeshell.org>
+- (3b3-1m)
 - Modified to build on Momonga 7
 
 * Sun Sep 25 2005 Aubrey Jaffer <agj@alum.mit.edu>
