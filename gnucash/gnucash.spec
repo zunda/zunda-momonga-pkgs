@@ -1,4 +1,4 @@
-%global momorel 1
+%global momorel 2
 
 # Check whether GnuCash should build optional modules.
 # To modify parameters, edit the .spec file, 0 is off, 1 is on
@@ -12,6 +12,7 @@
 %define fc_rel %(rpm -q --queryformat='%{VERSION}' --whatprovides redhat-release)
 
 %define version 2.4.4
+%define docs_version 2.2.0
 %define __libtoolize /bin/true
 
 %define libgnomeui_version 2.8.0
@@ -32,6 +33,8 @@ Group: Applications/Productivity
 URL: http://www.gnucash.org/
 Source0: http://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 NoSource: 0
+Source1: http://downloads.sourceforge.net/sourceforge/gnucash/gnucash-docs-%{docs_version}.tar.gz
+NoSource: 1
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires: GConf2
@@ -76,7 +79,7 @@ in C programs.
 %if %{_with_ofx}
 %package ofx
 Summary: Enables OFX importing in GnuCash
-Group: Applications/Finance
+Group: Applications/Productivity
 Requires: gnucash = %{version}
 Requires: libofx >= %{libofx_version}
 BuildRequires: libofx-devel
@@ -90,7 +93,7 @@ import OFX files.
 %if %{_with_hbci}
 %package hbci
 Summary: Enables HBCI importing in GnuCash
-Group: Applications/Finance
+Group: Applications/Productivity
 Requires: gnucash = %{version}
 Requires: aqbanking >= %{aqbanking_version}
 BuildRequires: aqbanking-devel
@@ -104,7 +107,7 @@ import HBCI files.
 %if %{_with_postgres}
 %package backend-postgres
 Summary: Backend for storing GnuCash data in a PostgreSQL database.
-Group: Applications/Finance
+Group: Applications/Productivity
 Requires: gnucash = %{version}
 Requires: postgresql >= %{postgresql_version}
 BuildRequires: postgresql-devel
@@ -120,7 +123,7 @@ want to keep your financial data in a database instead of a flat file
 %if %{_with_dbi}
 %package backend-dbi
 Summary: DBI Backend for storing GnuCash data databases.
-Group: Applications/Finance
+Group: Applications/Productivity
 Requires: gnucash = %{version}
 Requires: libdbi
 BuildRequires: libdbi-devel
@@ -132,8 +135,19 @@ one or more of the libdbi-dbd-* driver packages (e.g.  libdbi-dbd-mysql,
 libdbi-dbd-sqlite or libdbi-dbd-pgsql).
 %endif
 
+%package docs
+Summary: Docs for GnuCash
+Group: Applications/Productivity
+Requires: gnucash = %{version}
+BuildArch: noarch
+
+%description docs
+This is the docs module for GnuCash, actually for Version %{docs_version}.
+The docs can be accessed from Yelp (the GNOME2 help browser).
+
 %prep
 %setup -q
+%setup -qTDb 1
 
 %build
 %configure \
@@ -151,12 +165,15 @@ libdbi-dbd-sqlite or libdbi-dbd-pgsql).
 %endif
  --enable-gui
 
-
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %if %{_with_postgres}
 cp -p src/backend/postgres/README README.postgres
 %endif
+
+cd ../gnucash-docs-%{docs_version}
+%configure
+%make
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -166,6 +183,9 @@ LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}:$RPM_BUILD_ROOT%{_libdir}/gnucash make DE
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 %find_lang %name
+
+cd ../gnucash-docs-%{docs_version}
+%makeinstall
 
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT/%{_infodir}/dir
 
@@ -258,7 +278,16 @@ fi
 %{_libdir}/gnucash/libgncmod-backend-dbi*
 %endif
 
+%files docs
+%doc %{_datadir}/gnome/help/%{name}
+%doc %{_datadir}/omf/%{name}-docs
+
 %changelog
+* Sun Apr 10 2011 zunda <zunda at freeshell.org>
+- (2.4.4-2m)
+- Fixed Group tag
+- Added docs sub package
+
 * Mon Apr  4 2011 zunda <zunda at freeshell.org>
 - (2.4.4-1m)
 - Modifeid to build on Momonga 7
